@@ -283,7 +283,6 @@ Optiscroll.Instance.prototype = {
         element = me.element,
         scrollEl = me.scrollEl,
         listeners = me.listeners,
-        index = G.instances.indexOf(me),
         child;
 
     if(!me.scrollEl) { return; }
@@ -309,11 +308,10 @@ Optiscroll.Instance.prototype = {
     
     // defer instance removal from global array
     // to not affect checkLoop _invoke
-    if (index > -1) {
-      window.requestAnimationFrame(function () {
-        G.instances.splice(index, 1);
-      });
-    }
+    window.requestAnimationFrame(function () {
+      var index = G.instances.indexOf(me);
+      index > -1 && G.instances.splice(index, 1);
+    });
   },
 
 
